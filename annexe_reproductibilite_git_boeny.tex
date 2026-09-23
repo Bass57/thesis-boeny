@@ -1,0 +1,41 @@
+% -----------------------------------------------------------------------
+% ANNEXE A - GESTION DE VERSION ET REPRODUCTIBILITE (Git + seed fixe)
+% -----------------------------------------------------------------------
+% A inclure en annexe du memoire avec \input{annexe_reproductibilite_git_boeny.tex}.
+% Montre comment la demarche Git (5 commits, graine fixe) garantit une
+% reproductibilite totale des resultats du chapitre 3 (K=6, silhouette 0,765).
+% Compile avec l'environnement ''verbatim'' standard (pas de listing).
+% -----------------------------------------------------------------------
+
+\chapter{Gestion de version et reproductibilité}
+\label{annexe:reproductibilite_git}
+
+\section{Principes retenus}
+
+La reproductibilité des résultats (chapitre 3) repose sur trois piliers
+complémentaires :
+
+\begin{enumerate}
+  \item \textbf{Graine fixe} : \texttt{SEED = 1}, \texttt{random\_state = 1},
+        \texttt{nstart = 25} — les partitions K=6 et les règles (lift max 34,9)
+        sont strictement identiques à chaque exécution.
+  \item \textbf{Données traitées versionnées} : les fichiers intermédiaires
+        (profils, matrices, trajectoires lissées) sont conservés dans le dépôt
+        Git pour traçabilité et comparaison.
+  \item \textbf{Versionnage systématique} : chaque étape du pipeline constitue
+        un \emph{commit} documenté — l'historique Git sert de \emph{journal de
+        bord méthodologique}.
+\end{enumerate}
+
+\section{Historique du dépôt (extrait)}
+
+Le dépôt \texttt{thesis-boeny} (GitHub, dépôt privé) documente l'ensemble de la
+démarche :
+
+\begin{verbatim}
+f5f8567 Pipeline Boeny 2016-2025 : clustering K=6 + regles d'association
+06f43e8 Ajout chapitre 3 LaTeX (resultats K=6 + silhouette 0,765)
+c6439f9 Ajout README + licence CC-BY-NC-4.0 + finalisation avant push
+b7d6109 Ajout chapitre 1 (introduction) + chapitre 2 (donnees/methodes)
+EOF
+git add annexe_reproductibilite_git_boeny.tex && git commit -q -m "Ajout annexe A : gestio de version Git + reproductibilite (graine fixe SEED=1, nstart=25, K=6 silhouette 0,765)" && echo "===COMMIT OK===" && git log --oneline | head -6 && echo "===FICHIERS===" && git ls-files | wc -l && echo "fichiers tracks"
