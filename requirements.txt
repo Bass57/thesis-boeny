@@ -1,0 +1,8 @@
+earthengine-api
+geopandas
+matplotlib
+cartopy
+folium
+plotly
+rasterio
+

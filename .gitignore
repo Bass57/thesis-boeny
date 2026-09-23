@@ -1,0 +1,37 @@
+# =======================================================================
+# .gitignore — Script thesis Boeny (trajectoires spatiales 2016-2025)
+# Choix du dépôt : PRIVE (mémoire) + SANS DONNEES BRUTES volumineuses.
+# Le dépôt contient : scripts (*.py, *.R), résultats traités (CSV petits),
+# figures (PNG), HTML interactifs légers et guides (*.md).
+# =======================================================================
+
+# Environnement + cache
+venv/
+__pycache__/
+*.pyc
+
+# ---------- DONNEES BRUTES EXCLUES (régénérables / trop lourdes) ----------
+# Rasters Dynamic World 10 m bruts (~16 Mo × 10 = ~160 Mo) : téléchargés via
+# GEE ; régénèrés par dynamicworldBoeny.py -> NE PAS versionner.
+donnees/boeny_dynamicworld_10m/*.tif
+
+# Contexte géographique GADM (téléchargé, ~60 Mo) + archives/zip
+donnees/gadm/
+*.zip
+
+# Limite d'étude (polygone, régénérable à partir de GADM)
+donnees/boeny_boundary/
+
+# Gros CSV bruts/agrégés régénérables (trajectoires à 250 m), >100 Mo
+donnees/boeny_250m/trajectoires_large_250m.csv
+donnees/boeny_250m/trajectoires_large_250m_lisse.csv
+donnees/boeny_250m/trajectoires_longue_250m.csv
+donnees/boeny_250m/trajectoires_avec_clusters.csv
+
+# Diagnostics de bruit volumineux (régénérables par inspection_donnees.py)
+donnees/boeny_250m/diagnostic_bruit_cellules.csv
+donnees/boeny_250m/diagnostic_bruit_avant_apres.csv
+
+# Diagnostics lourds + raster agrégé 250 m (regénérés par les scripts)
+donnees/boeny_250m/diagnostic_bruit_apres_lissage.csv
+donnees/boeny_250m/boeny_occupation_sol_250m_2016_2025.tif
