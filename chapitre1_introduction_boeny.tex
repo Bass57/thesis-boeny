@@ -1,0 +1,125 @@
+% -----------------------------------------------------------------------
+% CHAPITRE 1 - INTRODUCTION (a adapter au contexte de votre universite)
+% -----------------------------------------------------------------------
+% A inclure dans votre .tex principal avec \input{chapitre1_introduction.tex}.
+% Ce chapitre pose la problematique, les objectifs et la demarche generale
+% sans anticiper les resultats (qui sont detailles au chapitre 3).
+% -----------------------------------------------------------------------
+
+\chapter{Introduction}
+\label{ch:introduction}
+
+\section{Contextualisation : la dynamique des paysages du Boeny}
+
+\paragraph{Un territoire sous forte pression environnementale.} La région Boeny,
+au nord-ouest de Madagascar, concentre plusieurs des grands enjeux écologiques du
+pays : un littoral soumis au marnage de l'estuaire de la Betsiboka (un des plus
+grands estuaires de l'océan Indien), une plaine alluviale à vocation agricole et
+une mosaïque de forêts et de savanes. Ce « carrefour écologique » cumule toutefois
+les pressions : urbanisation littorale, front pionnier agricole, défrichements et
+instabilité de la bande côtière sous l'effet des cycles de décrue et de marée.
+
+\paragraph{Un suivi insuffisant des trajectoires individuelles.} Les approches
+classiques de télédétection se limitent souvent à deux images prises à deux dates
+(état initial / état final), ce qui gomme les allers-retours intermédiaires
+(ex. une parcelle qui passe par le sol nu avant de revenir en culture). Or, c'est
+précisément cette \emph{séquence d'états successifs} — et non le seul état final
+— qui permet de distinguer une trajectoire stable d'une trajectoire dynamique.
+
+\paragraph{L'opportunité des séries temporelles décennales.} Depuis 2016, la
+famille de produits \emph{Dynamic World} (Google Earth Engine) fournit chaque
+année une carte globale de l'occupation du sol à 10 m de résolution, avec une
+nomenclature d'une dizaine de classes (eau, forêt, végétation non forestière,
+végétation inondée, cultures, bâti, sol nu). La combinaison de la haute
+résolution spatiale (10 m) et du pas annuel sur dix ans (2016--2025) ouvre une
+fenêtre d'observation inédite sur les trajectoires de changement à une échelle
+fine, jusqu'alors réservée aux gros pixels (300 m--1 km) ou aux séries courtes.
+
+\section{Problématique et hypothèses}
+
+\paragraph{Problématique.} Face aux pressions qui s'exercent sur le Boeny, cette
+recherche se demande : \emph{dans quelle mesure les trajectoires annuelles
+d'occupation du sol, observées à 10 m puis agrégées à une résolution de 250 m sur
+la période 2016--2025, permettent-elles de caractériser et de cartographier les
+dynamiques de changement — stables, cycliques ou de transition — du paysage
+boenien ?}
+
+\paragraph{Hypothèses de travail.} Trois hypothèses structurent la démarche :
+
+\begin{enumerate}
+  \item \textbf{Des trajectoires typiques émergent spontanément.} Le bilan des
+        transitions réalisé par regroupement statistique (k-means) fait émerger
+        un petit nombre de trajectoires types (quelques unités), mêlant zones
+        stables et zones dynamiques, sans qu'elles soient imposées a priori.
+  \item \textbf{Les changements se produisent principalement en bordure des
+        milieux stables.} La dynamique se concentre sur des franges de
+        transition (forêt--savane, estuaire, front agricole) plutôt qu'au cœur
+        des grandes unités homogènes.
+  \item \textbf{Des associations de transitions sont récurrentes et localisées.}
+        Certains enchaînements d'un état à un autre (ex. eau $\leftrightarrow$
+        sol nu) sont statistiquement sur-représentés et spatialement circonscrits,
+        signalant des processus spécifiques (vasières, estuaires, agriculture).
+\end{enumerate}
+
+\section{Objectifs et questions de recherche}
+
+\paragraph{Objectif général.} Développer un pipeline reproductible permettant de
+qualifier et de quantifier les trajectoires de changement de l'occupation du sol
+du Boeny sur 2016--2025, puis d'en tirer une typologie spatiale et des règles
+d'association.
+
+\paragraph{Objectifs spécifiques.}
+
+\begin{enumerate}
+  \item \textbf{Agréger} les données 10 m (2016--2025) en une résolution d'analyse
+        de 250 m, en appliquant un masque polygone au secteur d'étude, afin
+        d'obtenir des trajectoires annuelles par cellule (1e phase).
+  \item \textbf{Diagnostiquer et corriger le bruit} résiduel des séries
+        (artefacts de capteur, changement aberrant d'une année sur l'autre) par
+        un lissage spatio-temporel, en comparant l'avant et l'après.
+  \item \textbf{Regrouper} les trajectoires en un nombre restreint de classes
+        homogènes (clustering K-means) dont le nombre est validé par critère
+        d'inertie et de silhouette.
+  \item \textbf{Extraire} des règles d'association sur les transitions
+        (Apriori), triées par lift, pour identifier les dynamiques de
+        co-occurrence les plus informatives.
+  \item \textbf{Visualiser} spatialement les résultats (cartes statiques et
+        interactives) pour étayer l'interprétation géographique.
+\end{enumerate}
+
+\paragraph{Questions de recherche associées.}
+\begin{enumerate}
+  \item Les trajectoires du Boeny se regroupent-elles en classes bien séparées,
+        et en combien ?
+  \item Quelle part du territoire est stable / dynamique, et où ?
+  \item Quelles transitions sont les plus associées (lesquelles s'enchaînent) —
+        et ce constat est-il stable d'une année à l'autre ?
+\end{enumerate}
+
+\section{Démarche générale du mémoire}
+
+Le mémoire s'organise en trois temps qui correspondent aux trois chapitres
+suivants :
+
+\begin{enumerate}
+  \item \textbf{Chapitre 2 — Données et méthodes} : présentation du secteur
+        (Boeny), des données Dynamic World 10 m 2016--2025, et de la chaîne de
+        traitement (agrégation 10 m $\rightarrow$ 250 m, lissage, clustering,
+        règles). Tous les choix méthodologiques sont exposés et justifiés.
+  \item \textbf{Chapitre 3 — Résultats} : la typologie en six clusters, leur
+        profil et leur répartition spatiale, puis les dix règles d'association
+        (triées par lift) et leur lecture géographique.
+  \item \textbf{Conclusion générale} : synthèse des réponses aux questions de
+        recherche, limites (résolution d'analyse, lissage, choix de K) et
+        perspectives (validation par données de terrain, extension à d'autres
+        régions).
+\end{enumerate}
+
+\section{Reproductibilité}
+
+L'ensemble des scripts (Python/R), les valeurs de paramètres (graine fixe
+\texttt{SEED = 1}, \texttt{random\_state = 1}, \texttt{nstart = 25}) et les
+modalités d'exécution sont documentés dans le dépôt associé et le guide
+d'exécution (\texttt{GUIDE\_EXECUTION.md}). L'objectif est de rendre chaque
+figure, chaque tableau et chaque chiffre du mémoire \emph{reproductibles à
+l'identique} — une exigence centrale de la démarche scientifique.
